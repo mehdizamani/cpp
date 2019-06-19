@@ -1,0 +1,601 @@
+
+/////////////////////// classes and object
+
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <cassert>
+using namespace std;
+
+// Write your Student class here
+class Student{
+   public:
+   int score[5];
+   void input(){
+       int i;
+       for (int it=0;it<5;it++)
+       {
+           cin >> i;
+           score[it]=i;
+       }
+   };
+    
+   int calculateTotalScore(){
+     int sum=0;
+     for (int i = 0; i < 5; i++) {
+       sum += score[i];
+     }
+     return sum;
+   };
+};
+
+
+
+int main() {
+    int n; // number of students
+    cin >> n;
+    Student *s = new Student[n]; // an array of n students
+    
+    for(int i = 0; i < n; i++){
+        s[i].input();
+    }
+
+    // calculate kristen's score
+    int kristen_score = s[0].calculateTotalScore();
+
+    // determine how many students scored higher than kristen
+    int count = 0; 
+    for(int i = 1; i < n; i++){
+        int total = s[i].calculateTotalScore();
+        if(total > kristen_score){
+            count++;
+        }
+    }
+
+    // print result
+    cout << count;
+    
+    return 0;
+}
+
+
+
+///////////////// 
+#include<bits/stdc++.h>
+
+using namespace std;
+//Implement the class Box  
+//l,b,h are integers representing the dimensions of the box
+
+// The class should have the following functions : 
+
+// Constructors: 
+// Box();
+// Box(int,int,int);
+// Box(Box);
+
+
+// int getLength(); // Return box's length
+// int getBreadth (); // Return box's breadth
+// int getHeight ();  //Return box's height
+// long long CalculateVolume(); // Return the volume of the box
+
+//Overload operator < as specified
+//bool operator<(Box& b)
+
+//Overload operator << as specified
+//ostream& operator<<(ostream& out, Box& B)
+class Box{
+    private:
+       int l,b,h;
+    public:
+    Box():b(0),l(0),h(0){};
+    Box(int L, int B, int H) {
+      b = B;
+      l = L;
+      h = H;
+    };
+    Box(const Box & bx){
+        this->l = bx.l;
+        this->b = bx.b;
+        this->h = bx.h;
+    };
+    ~Box(){};
+
+    int getLength(){
+        return this->l;
+    }; // Return box's length
+    int getBreadth() {
+         return this->b;
+          }; // Return box's breadth
+    int getHeight() { 
+        return this->h; 
+        };
+    long long CalculateVolume() 
+    { 
+        return (long long)b * l * h;
+         };
+    bool operator<(Box &b)
+    {
+      if ((this->l < b.l) || (this->b < b.b && this->l == b.l) ||
+          (this->h < b.h && this->l == b.l && this->b == b.b))
+        return true;
+      else
+        return false;
+    };
+    friend ostream& operator<<(ostream & os, const Box &b)
+    {
+      os << b.l << " " << b.b << " " << b.h;
+      return os;
+    };
+};
+
+
+void check2()
+{
+	int n;
+	cin>>n;
+	Box temp;
+	for(int i=0;i<n;i++)
+	{
+		int type;
+		cin>>type;
+		if(type ==1)
+		{
+			cout<<temp<<endl;
+		}
+		if(type == 2)
+		{
+			int l,b,h;
+			cin>>l>>b>>h;
+			Box NewBox(l,b,h);
+			temp=NewBox;
+			cout<<temp<<endl;
+		}
+		if(type==3)
+		{
+			int l,b,h;
+			cin>>l>>b>>h;
+			Box NewBox(l,b,h);
+			if(NewBox<temp)
+			{
+				cout<<"Lesser\n";
+			}
+			else
+			{
+				cout<<"Greater\n";
+			}
+		}
+		if(type==4)
+		{
+			cout<<temp.CalculateVolume()<<endl;
+		}
+		if(type==5)
+		{
+			Box NewBox(temp);
+			cout<<NewBox<<endl;
+		}
+
+	}
+}
+
+int main()
+{
+	check2();
+}
+
+
+
+
+///////////// EXCEPTIONS
+
+
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <exception>
+using namespace std;
+
+/* Define the exception here */
+class BadLengthException:public exception {
+private:
+  int n;
+
+public:
+  BadLengthException(int errornumber) { n = errornumber; }
+
+  int what() { 
+      return n;
+     }
+};
+
+bool checkUsername(string username) {
+	bool isValid = true;
+	int n = username.length();
+	if(n < 5) {
+		throw BadLengthException(n);
+	}
+	for(int i = 0; i < n-1; i++) {
+		if(username[i] == 'w' && username[i+1] == 'w') {
+			isValid = false;
+		}
+	}
+	return isValid;
+}
+
+int main() {
+	int T; cin >> T;
+	while(T--) {
+		string username;
+		cin >> username;
+		try {
+			bool isValid = checkUsername(username);
+			if(isValid) {
+				cout << "Valid" << '\n';
+			} else {
+				cout << "Invalid" << '\n';
+			}
+		} catch (BadLengthException e) {
+			cout << "Too short: " << e.what() << '\n';
+		}
+	}
+	return 0;
+}
+
+
+////////////////  EXCEPTIONS 2
+
+Your friend set up a small computational server that performs complex calculations. 
+It has a function that takes  large numbers as its input and returns a numeric result. Unfortunately, there are various exceptions that may occur during execution.
+
+Complete the code in your editor so that it prints appropriate error messages, should anything go wrong. The expected behavior is defined as follows:
+
+If the compute function runs fine with the given arguments, then print the result of the function call.
+If it fails to allocate the memory that it needs, print Not enough memory.
+If any other standard C++ exception occurs, print Exception: S where  is the exception's error message.
+If any non-standard exception occurs, print Other Exception.
+
+#include <iostream>
+#include <exception>
+#include <string>
+#include <stdexcept>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+class Server {
+private:
+	static int load;
+public:
+	static int compute(long long A, long long B) {
+		load += 1;
+		if(A < 0) {
+			throw std::invalid_argument("A is negative");
+		}
+		vector<int> v(A, 0);
+		int real = -1, cmplx = sqrt(-1);
+		if(B == 0) throw 0;
+		real = (A/B)*real;
+		int ans = v.at(B);
+		return real + A - B*ans;
+	}
+	static int getLoad() {
+		return load;
+	}
+};
+int Server::load = 0;
+
+int main() {
+	int T; cin >> T;
+	while(T--) {
+		long long A, B;
+		cin >> A >> B;
+                
+                /* Enter your code here. */
+            static int a;
+            try {
+              if (A > 1073741823) {
+                    a++;
+                    throw std::bad_alloc();
+                }
+                cout << Server::compute(A, B) << endl;
+            }catch(std::bad_alloc &e)
+            {
+                cout<<"Not enough memory"<<endl;
+            }
+            catch (std::exception &e) {
+                cout <<"Exception: " << e.what() << endl;
+            }
+            catch(...)
+            {
+                cout<<"Other Exception"<<endl;
+            }
+            if (T == 0) {
+            cout << Server::getLoad() + a <<endl;
+            return 0;
+            }
+            
+	}
+	cout << Server::getLoad() << endl;
+	return 0;
+} 
+
+
+
+Input (stdin)
+2
+-8 5
+1435434255433 5
+
+Your Output (stdout)
+Exception: A is negative
+Not enough memory
+2
+
+Expected 
+Exception: A is negative
+Not enough memory
+2
+
+
+
+
+
+///////////////////////////////////////  virtual function
+
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+#include <numeric>
+#include <vector>
+
+class Person{
+    protected:
+      int age;
+      string name;
+    public:
+      //Person():age(0),name(""){}
+      virtual void putdata()=0;// { cin >> name >> age; }
+      virtual void getdata()=0;// { cout << name << " " << age<<endl; }
+};
+
+class Professor:public  Person{
+        private:
+          int publications;
+          int cur_id;
+          static int id;
+        public:
+            Professor():publications(0),cur_id{id++}{}
+             void getdata() {
+               std::cin >> name >> age >> publications;
+            }
+             void putdata() {
+                std::cout << name << " " << age << " " << publications
+                  << " " << cur_id << std::endl;
+            }
+};
+
+int Professor::id=1;
+class Student: public Person{
+    private :
+      vector<int> marks;
+      int sum;
+      int cur_id;
+      static int id;
+     public:
+      Student():marks(6),cur_id{id++}{} 
+      
+       void getdata() {
+            std::cin >> name >> age;
+            for(int i=0;i<6;i++)
+                std::cin >> marks[i];
+            sum = std::accumulate(marks.begin(),marks.end(),0);
+        }
+         void putdata() {
+            std::cout << name << " " << age << " "
+            << sum
+            << " " << cur_id <<  std::endl;;
+        }
+};
+int Student::id = 1;
+
+int main(){
+
+    int n, val;
+    cin>>n; //The number of objects that is going to be created.
+    Person *per[n];
+
+    for(int i = 0;i < n;i++){
+
+        cin>>val;
+        if(val == 1){
+            // If val is 1 current object is of type Professor
+            per[i] = new Professor;
+
+        }
+        else per[i] = new Student; // Else the current object is of type Student
+
+        per[i]->getdata(); // Get the data from the user.
+
+    }
+
+    for(int i=0;i<n;i++)
+        per[i]->putdata(); // Print the required output for each object.
+
+    return 0;
+
+}
+
+
+
+////////////////Workshop
+
+A student signed up for  workshops and wants to attend the maximum number of workshops where no two workshops overlap. You must do the following:
+
+Implement  structures:
+
+struct Workshop having the following members:
+
+The workshop's start time.
+The workshop's duration.
+The workshop's end time.
+struct Available_Workshops having the following members:
+
+An integer,  (the number of workshops the student signed up for).
+An array of type Workshop array having size .
+Implement  functions:
+
+Available_Workshops* initialize (int start_time[], int duration[], int n) 
+Creates an Available_Workshops object and initializes its elements using the elements in the  and parameters (both are of size ). Here,  and  are the respective start time and duration for the workshop. This function must return a pointer to an Available_Workshops object.
+
+int CalculateMaxWorkshops(Available_Workshops* ptr) 
+Returns the maximum number of workshops the student can attend—without overlap. The next workshop cannot be attended until the previous workshop ends.
+
+Note: An array of unknown size () should be declared as follows:
+
+DataType* arrayName = new DataType[n];
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+//Define the structs Workshops and Available_Workshops.
+//Implement the functions initialize and CalculateMaxWorkshops
+
+
+struct Workshops {
+    int start;
+    int duration;
+    int end;
+};
+
+struct Available_Workshops {
+    int numberOfWorkshops;
+    vector < Workshops> ws;
+};
+Available_Workshops * initialize(int a[], int b[], int n)
+{
+    Available_Workshops *temp = new Available_Workshops;
+    temp->ws.resize(n);
+    for (int i = 0; i < n; i++)
+    {
+        temp->ws[i].start = a[i];
+        temp->ws[i].duration = b[i];
+        temp->ws[i].end = a[i] + b[i];
+    }
+    return temp;
+};
+
+int CalculateMaxWorkshops(Available_Workshops * a)
+{
+    sort(a->ws.begin(), a->ws.end(),
+        [](Workshops &ws1, Workshops & ws2) -> bool
+    { return (ws1.end < ws2.end); });
+    int cntr = 0;
+    int max = 0;
+    for (int i = 0; i < a->ws.size(); i++)
+    {
+        if (a->ws[i].start >= cntr)
+        {
+            max++;
+            cntr = a->ws[i].end;
+        }
+    }
+
+    return max;
+};
+
+int main(int argc, char *argv[]) {
+    int n; // number of workshops
+    cin >> n;
+    // create arrays of unknown size n
+    int* start_time = new int[n];
+    int* duration = new int[n];
+
+    for(int i=0; i < n; i++){
+        cin >> start_time[i];
+    }
+    for(int i = 0; i < n; i++){
+        cin >> duration[i];
+    }
+
+    Available_Workshops * ptr;
+    ptr = initialize(start_time,duration, n);
+    cout << CalculateMaxWorkshops(ptr) << endl;
+    return 0;
+}
+
+
+///////////////////  Class template
+
+
+
+
+#include <iostream>
+using namespace std;
+enum class Fruit { apple, orange, pear };
+enum class Color { red, green, orange };
+
+template <typename T> struct Traits;
+template <>
+struct Traits<Color>{
+static string name(int a)
+{
+    switch (a)
+    {
+        case 0:
+           return "red";
+            break;
+        case 1:
+            return "green";
+            break;
+        case 2:
+            return "orange";
+            break;
+        default:
+            return "unknown";
+    }
+}
+};
+
+
+template <>
+struct Traits<Fruit>{
+static string name(int a)
+{
+    switch (a)
+    {
+        case 0:
+           return "apple";
+            break;
+        case 1:
+            return "orange";
+            break;
+        case 2:
+            return "pear";
+            break;
+        default:
+            return "unknown";
+    }
+}
+};
+// Define specializations for the Traits class template here.
+
+
+int main()
+{
+	int t = 0; std::cin >> t;
+
+    for (int i=0; i!=t; ++i) {
+        int index1; std::cin >> index1;
+        int index2; std::cin >> index2;
+        cout << Traits<Color>::name(index1) << " ";
+        cout << Traits<Fruit>::name(index2) << "\n";
+    }
+}
