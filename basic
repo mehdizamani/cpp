@@ -1,0 +1,301 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+
+int main() {
+    // Complete the code.
+    int a;
+    long l;
+    char c;
+    float f;
+    double d;
+    scanf(" %d %ld %c %f %lf", &a, &l, &c, &f, &d);  // check the & in scanf
+    printf("%d\n%ld\n%c\n%.2f\n%.5lf", a, l, c, f, d);
+    return 0;
+}
+
+
+
+
+//////////////////////////////////////////////////////////////////
+#include <bits/stdc++.h>
+#include <cstdio>
+//#include <iostream>
+using namespace std;
+
+
+
+int main()
+{
+    int n;
+    cin >> n;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    // Write Your Code Here
+    switch (n){
+        case 1:
+            printf("one");
+            break;
+
+        case 2:
+          printf("two");
+          break;
+          
+        case 3:
+            printf("three");
+            break;
+            
+        case 4:
+            printf("four");
+            break;
+            
+        case 5:
+            printf("five");
+            break;
+            
+        case 6:
+            printf("six");
+            break;
+
+        case 7:
+          printf("seven");
+          break;
+          
+        case 8:
+          printf("eight");
+          break;
+          
+        case 9:
+          printf("nine");
+          break;
+
+        default:
+          printf("Greater than 9");
+          break;
+    }
+
+    return 0;
+}
+
+
+
+
+///////////////////////////  POINTERS
+
+#include <stdio.h>
+
+void update(int *a,int *b) {
+    // Complete this function
+    int temp = *a + *b;
+    *b= (*a - *b) > (*b - *a) ? (*a - *b) :  (*b - *a) ;
+    int *ptemp = &temp;
+    *a = *ptemp;
+}
+
+int main() {
+    int a, b;
+    int *pa = &a, *pb = &b;
+    
+    scanf("%d %d", &a, &b);
+    update(pa, pb);
+    printf("%d\n%d", a, b);
+
+    return 0;
+}
+
+
+//////////////////////////// Stack
+
+
+
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <stack>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    int cnt=4;
+    cin >> cnt;
+    int numbers;
+    stack<int> st;
+    for (int i=0 ;i<cnt;i++)
+    {
+        cin >> numbers;
+        st.push(numbers);
+    }
+    while (st.size() > 0) {
+      cout << st.top() << " " ;
+      st.pop();
+    }
+    return 0;
+}
+
+
+
+//////////////////////////////// vector : variable size array
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */ 
+    int nArrays;
+    int nQuery;
+    cin >> nArrays >> nQuery;
+    vector<vector<int>> a(nArrays);
+    int nElements;
+    for (int i = 0; i < nArrays;i++)
+    {
+        cin >> nElements;
+        a[i].resize(nElements);
+        for (int j = 0; j < nElements; j++) {
+          cin >> a[i][j];
+        }
+    }
+    int ii=0;
+    int jj=0;
+    for (int i = 0; i < nQuery; i++) {
+        cin >> ii >>jj;
+        cout<<a[ii][jj]<<endl;
+    }
+
+      return 0;
+}
+
+
+
+//////////////////////// string stream
+
+#include <sstream>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+vector<int> parseInts(string str) {
+	// Complete this function
+    vector<int> integers;
+    stringstream ss(str);
+    int i;
+    while (ss>>i)
+    {
+        integers.push_back(i);
+        if (ss.peek() == ',')
+            ss.ignore();
+    }
+    return integers;
+}
+
+int main() {
+    string str;
+    cin >> str;
+    vector<int> integers = parseInts(str);
+    for(int i = 0; i < integers.size(); i++) {
+        cout << integers[i] << "\n";
+    }
+    return 0;
+}
+
+
+
+/////////////////////////////  string
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+	// Complete the program
+   string s1;
+   string s2;
+   cin >> s1;
+   cin >> s2;
+   cout<< s1.size() << " " << s2.size()<<endl;
+  
+   string sum;
+   sum = s1 + s2;
+   cout<< sum <<endl;
+ 
+   char s1f=s1[0];
+   char s2f=s2[0];
+   s1[0] = s2f;
+   s2[0] = s1f;
+   cout<< s1 << " " <<s2<<endl;
+    return 0;
+}
+
+
+
+/////////////////////  class
+
+#include <iostream>
+#include <sstream>
+using namespace std;
+
+/*
+Enter code for class Student here.
+Read statement for specification.
+*/
+
+class Student{
+    private: 
+        int age,standard;
+        string first_name, last_name;
+    public:
+      void set_age(int a) { age = a; };
+      void set_standard(int a) { standard = a; };
+      void set_first_name(string a) { first_name = a; };
+      void set_last_name(string a) { last_name = a;};
+
+      int get_age() { return age ; };
+      int get_standard() { return standard; };
+      string get_first_name() { return first_name; };
+      string get_last_name() { return last_name; };
+      string to_string(){ 
+          string a;
+          stringstream ss;
+          ss << age;
+          ss<< ',' ;
+          ss<< first_name;
+          ss<< ',';
+          ss<< last_name;
+          ss<< ',';
+          ss<< standard;
+          a=ss.str();
+           // BETTER ANSWERE!!
+          //char c = ',';
+          // ss << age << c << first_name << c << last_name << c << standard;
+          return a;
+           };
+};
+
+int main() {
+    int age, standard;
+    string first_name, last_name;
+    
+    cin >> age >> first_name >> last_name >> standard;
+    
+    Student st;
+    st.set_age(age);
+    st.set_standard(standard);
+    st.set_first_name(first_name);
+    st.set_last_name(last_name);
+    
+    cout << st.get_age() << "\n";
+    cout << st.get_last_name() << ", " << st.get_first_name() << "\n";
+    cout << st.get_standard() << "\n";
+    cout << "\n";
+    cout << st.to_string();
+    
+    return 0;
+}
+
+
+
