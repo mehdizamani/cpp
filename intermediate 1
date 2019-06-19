@@ -632,7 +632,8 @@ No 5
 Yes 6
 Yes 8
 
-// inefficient way :
+// VERRRRY inefficient way :
+
 #include <cmath>
 #include <cstdio>
 #include <vector>
@@ -677,4 +678,41 @@ int main() {
 }
 
 // CORRECT WAY using lower_b
+
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main() {
+  /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+  int temp;
+  int temp2;
+  cin >> temp;
+  vector<int> v;
+
+  vector<int>::iterator it;
+  for (int i = 0; i < temp; i++) {
+    cin >> temp2;
+    v.push_back(temp2);
+  }
+
+  cin >> temp;
+  sort(v.begin(), v.end());
+  
+  for (int i = 0; i < temp; i++) {
+    cin >> temp2;
+    it = lower_bound(v.begin(),v.end(),temp2);
+    //cout << *it << endl; // provide 1 6 9 15 for the example. means the values
+                         // of the vector
+    if (*it==temp2)
+        cout<< "Yes ";
+    else
+        cout << "No ";
+    cout<< (it - v.begin() ) + 1 <<endl;   // to obtain the position 
+  } 
+  return 0;
+}
 
