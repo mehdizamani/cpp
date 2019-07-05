@@ -121,3 +121,33 @@ long aVeryBigSum(vector<long> ar) {
     }
     return res;
 }
+
+
+
+//////////////
+/* max number of repeats  out of 5 numbers in a vector
+For example, assume your bird sightings are [1,1,2,2,3]. 
+There are two each of types 1 and2 , and one sighting of type 3. Pick the lower of the two types seen twice: type .
+Sample Input 0
+
+6
+1 4 4 4 5 3
+Sample Output 0
+
+4
+// Complete the migratoryBirds function below.
+int migratoryBirds(vector<int> arr) {
+
+    vector<int> v(5,0);
+    int res=6;
+    for (int i=0;i<arr.size();i++)
+        v[arr[i]-1]++;
+    int max=*max_element(v.begin(),v.end());  // important : to get max valueof a vector
+    for (int i=0;i<v.size();i++)
+        if (v[i]==max)
+            res = min(res, i+1);
+    return res;
+}
+
+
+
