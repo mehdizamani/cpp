@@ -151,3 +151,67 @@ int migratoryBirds(vector<int> arr) {
 
 
 
+
+//////////////////////
+/* Roy wanted to increase his typing speed for programming contests. His friend suggested that he type the sentence 
+"The quick brown fox jumps over the lazy dog" repeatedly.
+This sentence is known as a pangram because it contains every letter of the alphabet.
+After typing the sentence several times, Roy became bored with it so he started to look for other pangrams.
+Given a sentence, determine whether it is a pangram. Ignore case.
+
+
+
+Sample Input 0
+
+We promptly judged antique ivory buckles for the next prize
+
+Sample Output 0
+
+pangram
+
+Sample Explanation 0
+
+All of the letters of the alphabet are present in the string.
+
+
+
+Sample Input 1
+
+We promptly judged antique ivory buckles for the prize
+
+Sample Output 1
+
+not pangram
+
+*/
+string pangrams(string s) {
+    int cnt=0;
+    unordered_map <int , char> m;
+    int temp=0;
+    for (int i=65;i<91;i++) ///ascii codes of A - Z
+        m[i]++;
+    for (int i=97;i<123;i++) ///ascii codes of a - z
+        m[i]++;
+    for (int i=0;i<s.length();i++)
+    {
+        temp=(int)(s[i]);
+        if(m.find(temp)!=m.end())
+        {
+            cnt++;
+            if (temp>=65 && temp<91)
+            {
+                m.erase(m.find(temp));
+                m.erase(m.find(temp+32));
+
+            }else if (temp>=97 && temp<123)
+            {
+                m.erase(m.find(temp));
+                m.erase(m.find(temp-32));
+            }
+        }    
+    }
+    return cnt==26 ? "pangram":"not pangram";
+
+}
+
+
