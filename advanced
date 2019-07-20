@@ -46,3 +46,224 @@ cout << B << endl; // actual printed part
 // LINE 3
 cout << scientific << uppercase << noshowpos << setprecision(9); // formatting
 cout << C << endl; // actual printed part
+
+
+
+
+
+///////////////////////////////////////////////////////////////////
+void recursive(vector<int> &d, vector<int>& c, int& res)
+	{
+		make_heap(d.begin(), d.end());   /// IMP!!!
+		make_heap(c.begin(), c.end());
+	}
+    
+ //////////////////////////////////////////////////////
+ 
+ instead of :
+  int ages[3];
+  ages[1] = 18;
+  ages[2] = 21;
+  ages[3] = 35;
+  int total(0);
+  for(auto age: ages){
+    total += age;
+  }  
+  
+ we can use : !!!!!!
+    #include <numeric>
+    int initial_sum  = 0; 
+    accumulate(age,age+3, initial_sum); 
+   
+    OR
+    vector<int> v;
+    accumulate(v.begin(), v.end(), initial_sum); 
+  /////////////////////////////////////////////////
+  
+  std::vector<int> items;
+  items.push_back(1);
+  items.push_back(2);
+  items.push_back(3);
+  std::vector<int>::iterator iter;
+  for (iter = items.begin(); iter != items.end(); ++iter) {
+    if (*iter == 2) {
+      items.erase(iter);  ///// ERROR CAN NOT DELETE IN THE MIDDLE OF LOOP
+    }
+  }
+  
+  
+  ///////////////////////////////////////////////
+  Since C++14, you can use auto as a return type, but all returns should have the same type.
+  
+  std::vector<int> alpha{1, 2, 3};
+  // auto beta{1, 2, 3}; // error: initializer for variable 'beta' with type 'auto' contains multiple expressions
+  auto gamma = {1, 2, 3}; // can do this, but... wrong type
+  auto delta = std::vector<int>{1, 2, 3};
+  std::vector<int> epsilon;
+  // auto zeta;  // error: declaration of variable 'zeta' with deduced type 'auto' requires an initializer
+
+
+
+//////////////////////////////
+size_t is a basic unsigned integer. It's size depends on the system. 
+It can store the maximum size of a theoretically possible object of any type, 
+including a ray. Using size_t can improve your code's portability and efficiency.
+Most index containers in the STL use size type, which is another name for size_t.
+
+const std:: size_t N{10};
+std::size_t [N];
+for (size_t n{0};n<N;++n) // intizialization!!!
+    a[n]=n;
+    
+for(size_t n{N};n-->0;)  // decrement !!
+    cout<<a[n];
+   
+   
+ //////////////////////////////////////
+ 
+ usage of auto in modern C++
+ 
+  std::vector<int> v{0, 1, 2, 3, 4, 5};
+  for (auto i : v) {
+    std::cout << i << ' ';
+  }
+  std::cout << std::endl;
+
+  for (int n : {9, 8, 7, 6, 5, 4}) {
+    std::cout << n << ' ';
+  }
+  std::cout << std::endl;
+
+  int a[]{0, 1, 2, 3, 4, 5};
+  for (auto n : a) {
+    std::cout << n << ' ';
+  }
+  std::cout << std::endl;
+
+  std::string str{"Modern C++"};
+  for (auto ch : str) {
+    std::cout << ch << ' ';
+  }
+  std::cout << std::endl;
+
+  std::map<int, std::string> nicknames{{1, "biz"},
+                                        {2, "fox"},
+                                        {3, "wiz"}};
+  for (auto ndx : nicknames) {
+    std::cout << ndx.first << ", " << ndx.second << std::endl;
+  }
+  
+  /////////////////////////////////////////
+  LAMDA and for_each
+
+
+
+FIRST:
+
+   std::vector<int> nums{3, 4, 2, 8, 15, 267};
+  std::for_each(nums.begin(), nums.end(), std::bind(&print_it, std::placeholders::_1));
+  std::cout << std::endl;
+  std::for_each(nums.begin(), nums.end(), [](const int &n) { std::cout << "-" << n; });
+  std::cout << std::endl;
+
+  auto myLambda = [](const int &n) { std::cout << "*" << n; };
+  std::for_each(nums.begin(), nums.end(), myLambda);
+  std::cout << std::endl;
+
+  auto currentLight = BattleCondition::green;
+  const auto shieldLevel = [&]() {
+    switch (currentLight) {
+      case BattleCondition::green:
+        return 50;
+      case BattleCondition::yellow:
+        return 700;
+      case BattleCondition::red:
+      default:
+        return 1000;
+    }
+  }();
+  std::cout << "Current Shield Level = " << shieldLevel << std::endl;
+
+
+SECOND:
+auto header = [](std::string title){
+    std::cout << "---- " << title << " ----" << '\n';
+  };
+  auto render = [](auto collection) {
+    for (const auto &val: collection) {
+      std::cout << val << '\n';
+    }
+  };
+
+  header("map");
+  std::vector<int> inCollection{11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+  std::vector<int> outCollection;
+  transform(inCollection.begin(), inCollection.end(), back_inserter(outCollection),
+            [](const int &value) { return value * 3; });
+  render(outCollection);
+
+  header("filter");
+  std::vector<int> filteredCollection;
+
+  copy_if(outCollection.begin(), outCollection.end(), back_inserter(filteredCollection),
+          [](int &value) { return value % 2 != 0; });
+  render(filteredCollection);
+
+  header("reduce");
+  int results = std::accumulate(filteredCollection.begin(), filteredCollection.end(),
+                           0, [](int total, int current) {
+        return total + current;
+      });
+  std::cout << "results: " << results << "\n";
+  
+  
+
+
+//////////////////////////////////////////////
+ MAGIC OF VARIANT TEMPLATE FUNCTION!!!!
+ WHEN WE WANT TO HAVE A FUNCTION WITH VARIABLE INPUT
+ 
+template<typename T>
+T rcatenate(T v) {
+  return v;
+}
+
+template<typename T, typename... Args>
+T rcatenate(T first, Args... args) {
+  return rcatenate(args...) + " " + first;
+}
+
+int main() {
+  std::string s1 = "biz", s2 = "fox", s3 = "wiz";
+  std::string cc = rcatenate(s1, s2, s3);
+  std::cout << "reverse concatenated = " << cc << std::endl;
+  return 0;
+}
+
+
+
+OR 
+
+
+template<typename T>
+T summer(T v) {
+  return v;
+}
+
+template<typename T, typename... Args>
+T summer(T first, Args... args) {
+  return first + summer(args...);
+}
+
+int main() {
+  std::cout << "summer(1, 2, 13, 100, 200) = " << summer(1, 2, 13, 100, 200) << std::endl;
+  return 0;
+}
+
+
+
+
+
+
+   
+   
