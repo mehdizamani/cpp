@@ -304,3 +304,66 @@ dash-separated string (right-folded): 10-9-8-7-6-5-4-3-2-1
 
 
 /////////////////////////
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class HotelRoom {
+public:
+    HotelRoom(int bedrooms, int bathrooms) 
+    : bedrooms_(bedrooms), bathrooms_(bathrooms) {}
+    
+    virtual int get_price() {
+        return 50*bedrooms_ + 100*bathrooms_;
+    }
+private:
+    int bedrooms_;
+    int bathrooms_;
+};
+
+class HotelApartment : public HotelRoom {
+public:
+    HotelApartment(int bedrooms, int bathrooms) 
+    : HotelRoom(bedrooms, bathrooms) {}
+
+    int get_price() {
+        return HotelRoom::get_price() + 100; // tricky to use scope resolution operator
+    }
+};
+
+int main() {
+    int n;
+    cin >> n;
+    vector<HotelRoom*> rooms;
+    for (int i = 0; i < n; ++i) {
+        string room_type;
+        int bedrooms;
+        int bathrooms;
+        cin >> room_type >> bedrooms >> bathrooms;
+        if (room_type == "standard") {
+            rooms.push_back(new HotelRoom(bedrooms, bathrooms));   // TRICKY HOW TO INITIAL!!!
+        } else {
+            rooms.push_back(new HotelApartment(bedrooms, bathrooms));
+        }
+    }
+
+    int total_profit = 0;
+    for (auto room : rooms) {
+        total_profit += room->get_price();
+    }
+    cout << total_profit << endl;
+
+    for (auto room : rooms) {
+        delete room;   // DELETE!!!!!!!!
+    }
+    rooms.clear();
+
+    return 0;
+}
+
+
+
+
+///////////////////////////////////////
