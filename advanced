@@ -54,9 +54,37 @@ cout << C << endl; // actual printed part
 ///////////////////////////////////////////////////////////////////
 void recursive(vector<int> &d, vector<int>& c, int& res)
 	{
-		make_heap(d.begin(), d.end());   /// IMP!!!
+		make_heap(d.begin(), d.end());   /// IMP!!!  it creates a max heap from a range of data
 		make_heap(c.begin(), c.end());
 	}
+    E.G.:
+     vector<int> vi = { 4, 6, 7, 9, 11, 4 }; 
+    // using make_heap() to transform vector into a max heap 
+    make_heap(vi.begin(),vi.end()); 
+    cout<< vi.front(); // 11
+    int a = 10;
+    for ( int i=0; i<k; i++) 
+    {
+	    // push a job with priority level 
+	    vi.push_back(a);           
+	    // transform into heap ( using push_heap() ) 
+	    push_heap(vi.begin(), vi.end());     /// IMP !!
+    }
+      
+    Or:
+    
+    // comparator function to make min heap 
+    struct greaters{ 
+    bool operator()(const long& a,const long& b) const{ 
+	  return a>b; 
+	} 
+    }; 
+    main(){
+	    vector<int> vi = { 15, 6, 7, 9, 11, 45 }; 
+	    // using make_heap() to transform vector into a min heap 
+	    make_heap(vi.begin(),vi.end(), greaters());  
+	    cout << vi.front() << endl; // 6
+    }
     
  //////////////////////////////////////////////////////
  
