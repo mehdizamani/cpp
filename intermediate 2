@@ -243,3 +243,16 @@ int main ()
   std::cout << perfect << '\n';
   return 0;
   }
+
+
+
+
+/////////////////////////////////////////////
+
+    char c ='2';
+    cout << ++c << endl;  // becomes 3
+    c +='1' & 1; // add 1 to it 
+    cout << c << endl;  // becomes 4
+    char d ='1';
+    cout<< d + 1 <<endl; // becomes 50!
+    cout<< d + 2 <<endl; // becomes 51! cuz of ascii result
