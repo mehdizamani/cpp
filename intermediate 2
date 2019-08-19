@@ -256,3 +256,7 @@ int main ()
     char d ='1';
     cout<< d + 1 <<endl; // becomes 50!
     cout<< d + 2 <<endl; // becomes 51! cuz of ascii result
+    
+    // TO ADD  A NUMBER INTO A CHAR Variable !!!!!
+    int iShortCntr = 4;
+    char c = '0' + iShortCntr ;  // will get 4 !!
