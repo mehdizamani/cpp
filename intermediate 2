@@ -260,3 +260,25 @@ int main ()
     // TO ADD  A NUMBER INTO A CHAR Variable !!!!!
     int iShortCntr = 4;
     char c = '0' + iShortCntr ;  // will get 4 !!
+
+
+
+////////////////////////////
+
+#include <fstream>
+void main(){
+    
+    std::ifstream file("file.text");
+    if (file.is_open()) {
+        std::string line;
+        while (getline(file, line)) {
+            // using printf() in all tests for consistency
+            printf("%s", line.c_str());
+        }
+        file.close();
+    }
+}
+
+
+////////////
+
