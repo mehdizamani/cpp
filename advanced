@@ -406,3 +406,14 @@ int reversed_binary_value(){
     }
     return sum;
 };
+/////////////////////
+
+
+Inner product of teo vectors:
+
+#include<numeric>   
+vector<int> a  = {1,2,3};
+vector<int> b  = {1,2,3};
+
+int product = std::inner_product(a.begin(), a.end(), b.begin(), 0);
+
