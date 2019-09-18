@@ -281,4 +281,10 @@ void main(){
 
 
 ////////////
-
+#include <array> // to inculde fized size container that is used fo accessing data. 
+array<float, 3> arr = {0.3f, 1.0f, 444.23f};
+arr.clear(); // remove all element
+arr.size();
+arr.front(); // arr[0]
+arr.back(); // arr[arr.size()-1]
+///////
