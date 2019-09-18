@@ -417,3 +417,63 @@ vector<int> b  = {1,2,3};
 
 int product = std::inner_product(a.begin(), a.end(), b.begin(), 0);
 
+/////////////////////////////////
+About vector:
+1) always prefer emplace_back instead of push_back in vectors because push_back is slower 
+(copy the parameter first and then push in to vector)
+2) also, continuous usage of emplace_back or push_back changes the size of vector a lot 
+which is not  efficient because it forces the vector to resize very often and the processor needs to copy and pase data to new vector.
+Therefore it is better to reserve a size for the vector at the begining 
+vector<string> st;
+const int kNumSize;  // constant variables starts with k !!! and follows CamelCase standard
+st.reserve(iNumSize);
+
+////////////////////////////////////
+References:
+References are alias to the type they are referencing to.
+They ar vey useful when we want to used them in functions.
+They give us high performance becuase they avoid copying the data
+Although they are fast, u may loose control. Therefore you should use them with const to avoid people change them.
+Means you avoid people have acces to ur memory. 
+
+
+
+int num= 4;
+int & num_ref = num;
+cout<< num<< " " << num_ref ; // 4 4 !!!!! 
+num_ref = 5;
+cout<< num<< " " << num_ref ; // 5 5 !!!!! 
+
+using const:
+int num= 4;
+const int & kNum_ref = num;
+cout<< num<< " " << kNum_ref ; // 4 4 !!!!! 
+num = 6;
+cout<< num<< " " << kNum_ref ; // 6 6!!!!! 
+num_ref = 5;   // ERROR !!!
+
+
+/////////////////
+Usage of reference in for loop:
+If we have a vector of string and we want to print them(or use the string element in any way), it is better to use const auto& . 
+The  reason is that string can be very big and using simple auto need copy and past of a big value which is costly
+
+vector<string> s={"$34","2r34"};
+for(const auto& i:s)
+	cout<< i<<endl;
+
+
+//////////////
+s.th. out of cpp!!! :)  git commands:
+
+git clone <rep_url_from_server>
+after cloning to you local folder and changing code or adding files:
+git add <files>
+git commit -am "message/comments"
+git push origin master
+git status
+
+for more info ad guidance:
+https://rogerdudler.github.io/git-guide/ 
+
+////////////////////
