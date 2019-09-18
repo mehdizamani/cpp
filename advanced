@@ -477,3 +477,27 @@ for more info ad guidance:
 https://rogerdudler.github.io/git-guide/ 
 
 ////////////////////
+enabling all warning when we compile cpp code. Treat warning as errors
+-Wall -Wextra -Werror
+
+~/>> c++ -std=c++11 test.cpp   // create a.out as executable file
+~/>> c++ -std=c++11 -o test test.cpp // creates test as executable
+~/>> c++ -std=c++11 -Wall -o test test.cpp // creates test as executable and prints all warnings
+
+-03 or -0fast  does code optimization in case the code does not run very fast
+
+
+/////////////////
+debugging:
+a good debugging tool for linux is gdbgui ! helps u put break and continue and so on so force
+
+~/>>gdbgui a.o // we pass the binary file to it!!
+
+//////////////////
+
+function naming also CamelCase 
+int MyFunction(int q){
+return q;
+}
+
+
