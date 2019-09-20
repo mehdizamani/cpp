@@ -507,3 +507,6 @@ Vector<float> v;
 Float f = std::accunulate(v.begin(),v.end(), 1.0f, multiplies<float>());
 
 ///////////
+Each header file should have 
+#pragma once
+This preprocessor command tells compiler to add the header file just once
