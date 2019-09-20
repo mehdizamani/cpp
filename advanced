@@ -500,4 +500,10 @@ int MyFunction(int q){
 return q;
 }
 
+//////////////
 
+Multiply a vector elements
+Vector<float> v;
+Float f = std::accunulate(v.begin(),v.end(), 1.0f, multiplies<float>());
+
+///////////
