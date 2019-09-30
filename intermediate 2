@@ -307,10 +307,10 @@ public:
         if (it != cache.end()) touch(it);
         else {
 			if (cache.size() == _capacity) {
-				cache.erase(used.back());
-				used.pop_back();
+				cache.erase(used.back()); // erasing using a key!!! we can also do it by cashe.erase(it);
+				used.pop_back();  // !! pop_back access in list
 			}
-            used.push_front(key);
+            used.push_front(key); // !! push_front function in a list
         }
         cache[key] = { value, used.begin() };
     }
