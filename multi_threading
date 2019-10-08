@@ -1,3 +1,5 @@
+
+//// CREATING TWO THREAD USING FUNCTION POINTERS
 #include <iostream>
 #include <ctime>
 #include <chrono>
