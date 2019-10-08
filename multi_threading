@@ -1,0 +1,45 @@
+#include <iostream>
+#include <ctime>
+#include <chrono>
+#include <thread>
+using namespace std;
+using namespace std::chrono;
+
+
+typedef unsigned long long ull;
+ull findodd(ull beg, ull end){
+	ull sum = 0;
+	for(ull i = beg; i < end ; i++)
+	{
+		if(i&1)
+			sum += i;
+	}
+	return sum;
+}
+ull findeven(ull beg, ull end){
+	ull sum = 0;
+	for(ull i = beg; i < end ; i++)
+	{
+		if(!(i&1))
+			sum += i;
+	}
+	return sum;
+}
+int main(){
+	ull beg = 0 , end = 19000000;
+	auto start_time = high_resolution_clock::now();
+	thread t1(findodd, beg, end);
+	thread t2(findeven, beg, end);
+	t1.join();
+	t2.join();
+	//findodd(beg, end);
+	//findeven(beg, end);
+	auto end_time = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(end_time - start_time);
+	cout<<duration.count()/100000<<endl;
+	return 0;
+}
+
+
+/////////////////////////////////////
+
