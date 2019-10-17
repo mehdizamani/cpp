@@ -510,3 +510,20 @@ Float f = std::accunulate(v.begin(),v.end(), 1.0f, multiplies<float>());
 Each header file should have 
 #pragma once
 This preprocessor command tells compiler to add the header file just once
+
+
+//////////////////
+In order to remove number 8 from a vector:
+#include<algorithm>
+vec.erase(std::remove(vec.begin(), vec.end(), 8), vec.end());
+
+
+Also, this line alone can do that:
+std::remove(vec.begin(), vec.end(), 8)
+
+//////////////
+Priority queue (heap) in c++ is max heap. How to make it a min heap:
+// Creates a max heap
+priority_queue <int> pq;
+// Creates a min heap
+priority_queue <int, vector<int>, greater<int> > pq;
