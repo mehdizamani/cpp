@@ -81,8 +81,8 @@ void recursive(vector<int> &d, vector<int>& c, int& res)
     }; 
     main(){
 	    vector<int> vi = { 15, 6, 7, 9, 11, 45 }; 
-	    // using make_heap() to transform vector into a min heap 
-	    make_heap(vi.begin(),vi.end(), greaters());  
+	    // using make_heap() to transform vector into a min heap  otherwise it is a max heap y defaut
+	    make_heap(vi.begin(),vi.end(), greaters<int>());  
 	    cout << vi.front() << endl; // 6
     }
     
